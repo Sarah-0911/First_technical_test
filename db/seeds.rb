@@ -3,5 +3,25 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+
+require "json"
+require "open-uri"
+
+puts "je détruis tous les films"
+Movie.destroy_all
+
+url = "https://gist.githubusercontent.com/alexandremeunier/49533eebe2ec93b14d32b2333272f9f8/raw/924d89e2236ca6fa2ade7481c91bfbf858c49531/movies.json"
+file = URI.open(url)
+movies = JSON.parse(file.read)
+
+  movies.map do |movie|
+    Movie.create(
+      title: movie["title"],
+      year: movie["year"],
+      image: movie["image"],
+      score: movie["score"],
+      rating: movie["rating"]
+    )
+  end
+
+puts "j'ai créé toutes la liste de films"
