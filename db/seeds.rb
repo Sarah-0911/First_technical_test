@@ -14,6 +14,7 @@ url = "https://gist.githubusercontent.com/alexandremeunier/49533eebe2ec93b14d32b
 file = URI.open(url)
 movies = JSON.parse(file.read)
 
+10.times do
   movies.map do |movie|
     Movie.create(
       title: movie["title"],
@@ -23,5 +24,6 @@ movies = JSON.parse(file.read)
       rating: movie["rating"]
     )
   end
+end
 
-puts "j'ai créé toutes la liste de films"
+puts "j'ai créé toute la liste de films"
